@@ -10,7 +10,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SQLite.Clases;
 using SQLite;
@@ -18,26 +17,21 @@ using SQLite;
 namespace SQLite
 {
     /// <summary>
-    /// Lógica de interacción para MainWindow.xaml
+    /// Lógica de interacción para Eliminar.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Eliminar : Window
     {
-        public MainWindow()
+        public Eliminar()
         {
             InitializeComponent();
         }
-        private void btnGuardar_Click(object sender, RoutedEventArgs e)
+        private void btnEliminar_Click(object sender, RoutedEventArgs e)
         {
-            Contactos contacto = new Contactos()
-            {
-                Nombre = txtNombre.Text,
-                Correo = txtCorreo.Text,
-                Telefono = txtTelefono.Text
-            };
             using (SQLiteConnection conexion = new SQLiteConnection(App.databasePath))
             {
-                conexion.CreateTable<Contactos>();
-                conexion.Insert(contacto);
+                string sentenciaSQL = "delete from contactos where Nombre='"
+                    + txtNombre.Text + "'";
+                conexion.Execute(sentenciaSQL);
             }
             Close();
         }
